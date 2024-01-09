@@ -1,0 +1,97 @@
+Task 4 - Create table given below: Salesperson and Customer
+
+
+create database firm_ltd;
+
+-- Create Table Salseperson
+
+create table SALSEPERSON
+(
+    S_No int primary key,
+    S_Name varchar (40),
+    City varchar (40),
+    S_Comm  decimal (5,2)   -- It Shows Decimal Value 5 = Digit and 2 = decimal 00
+    
+);
+
+
+-- Insert Data into Table Salseperson
+
+
+insert into SALSEPERSON (S_No, S_Name, City, S_Comm)
+values (1001, "Peel", "London", 0.12);
+
+insert into SALSEPERSON (S_No, S_Name, City, S_Comm)
+values (1002, "Serres", "San Jose", 0.13);
+
+insert into SALSEPERSON (S_No, S_Name, City, S_Comm)
+values (1004, "Motika", "London", 0.11);
+
+insert into SALSEPERSON (S_No, S_Name, City, S_Comm)
+values (1007, "Rafkin", "Barcelona", 0.15);
+
+insert into SALSEPERSON (S_No, S_Name, City, S_Comm)
+values (1003, "Axelrod", "New York", 0.1);
+
+
+
+-- Create Table Customer
+
+create table CUSTOMER
+( 
+    CNM int,
+    C_Name varchar (40),
+    City varchar (40),
+    Ratings int,
+    S_No int
+);
+
+-- Insert Data into Table Customer
+insert into CUSTOMER (CNM, C_Name, City, Ratings, S_No)
+values (201, "Hoffman", "London", 100, 1001);
+
+insert into CUSTOMER (CNM, C_Name, City, Ratings, S_No)
+values (202, "Govanne", "Rome", 200, 1003);
+
+insert into CUSTOMER (CNM, C_Name, City, Ratings, S_No)
+values (203, "Liu", "San Jose", 300, 1002);
+
+insert into CUSTOMER (CNM, C_Name, City, Ratings, S_No)
+values (204, "Grass", "Barcelona", 100, 1002);
+
+insert into CUSTOMER (CNM, C_Name, City, Ratings, S_No)
+values (206, "Clemens", "London", 300, 1007);
+
+insert into CUSTOMER (CNM, C_Name, City, Ratings, S_No)
+values (207, "Pereira", "Rome", 100, 1004);
+
+
+/// CONDITIONS
+
+-- Condition A ---  All orders for more than $1000.
+
+
+-- Condtion  B ---  Names and cities of all salespeople in London with commission above 0.12
+
+select S_Name, City, S_Comm from SALSEPERSON where CIty = "London" and S_Comm >= 0.12;
+
+
+-- Condition C --- All salespeople either in Barcelona or in London
+
+select * from SALSEPERSON where City = "Barcelona" or City = "London";
+
+-- Condition D --- All salespeople with commission between 0.10 and 0.12. (Boundary values
+should be excluded).
+
+select * from SALSEPERSON where S_Comm between 0.10 and 0.12;
+
+-- Condition E --- All customers excluding those with rating <= 100 unless they are located in
+Rome
+
+select *  from CUSTOMER where Ratings >= 100 and City = "Rome";
+
+
+select * from SALSEPERSON;
+select * from CUSTOMER;
+
+drop table SALSEPERSON;

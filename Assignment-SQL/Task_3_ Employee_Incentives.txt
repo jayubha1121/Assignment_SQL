@@ -1,0 +1,165 @@
+Task 3 -  Employee_Incentives
+
+// Create Database
+create DATABASE my_company;
+
+
+// Create Table
+
+create table employee
+(
+    E_ID int primary key,
+    First_Name VARCHAR (40),
+    Last_Name VARCHAR (40),
+    Salary int,
+    Joining_Date_Time VARCHAR (40),
+    Department VARCHAR (40)
+
+);
+
+
+// Insert Data into Table
+
+INSERT INTO
+employee(E_ID, First_Name,Last_Name,Salary, Joining_Date_Time, Department)
+VALUES (1,"John", "Abraham", 1000000, "01-Jan-13  (12:00 AM)", "Banking");
+
+INSERT INTO
+employee(E_ID, First_Name,Last_Name,Salary, Joining_Date_Time,Department)
+VALUES (2,"Mickal", "Clarke", 800000,  "01-Jan-13  (12:00 AM)","Insurance");
+
+INSERT INTO
+employee(E_ID, First_Name,Last_Name,Salary, Joining_Date_Time,Department)
+VALUES (3,"Roy", "Thomas", 700000,"01-Feb-13  (12:00 AM)", "Banking");
+
+INSERT INTO
+employee(E_ID, First_Name,Last_Name,Salary, Joining_Date_Time,Department)
+VALUES (4,"Tom", "Jose", 600000,"01-Feb-13  (12:00 AM)",  "Insurance");
+
+INSERT INTO
+employee(E_ID, First_Name,Last_Name,Salary, Joining_Date_Time,Department)
+VALUES (5,"Jerry", "Pinto", 650000, "01-Feb-13  (12:00 AM)", "Insurance");
+
+INSERT INTO
+employee(E_ID, First_Name,Last_Name,Salary, Joining_Date_Time,Department)
+VALUES (6,"Philip", "Mathew", 750000, "01-Jan-13  (12:00 AM)", "Service");
+
+INSERT INTO
+employee(E_ID, First_Name,Last_Name,Salary, Joining_Date_Time,Department)
+VALUES (7,"TestName1", "123", 650000,"01-Jan-13  (12:00 AM)", "Service");
+
+INSERT INTO
+employee(E_ID, First_Name,Last_Name,Salary, Joining_Date_Time,Department)
+VALUES (8,"TestName2", "Lname%", 600000,"01-Feb-13  (12:00 AM)", "Insurance");
+
+
+// create another Table Incentives
+
+
+create table incentives
+(
+ Emp_Ref_ID int,
+ Incentive_Date  VARCHAR (40),
+ Incentive_Amount int 
+);
+
+
+// Insert data into Table Incentives
+
+INSERT INTO 
+incentives (Emp_Ref_ID, Incentive_Date ,Incentive_Amount)
+VALUES (1, "01-Feb-13", 5000);
+
+INSERT INTO 
+incentives (Emp_Ref_ID, Incentive_Date ,Incentive_Amount)
+VALUES (2, "01-Feb-13", 3000);
+
+INSERT INTO 
+incentives (Emp_Ref_ID,  Incentive_Date ,Incentive_Amount)
+VALUES (3, "01-Feb-13",  4000);
+
+INSERT INTO 
+incentives (Emp_Ref_ID, Incentive_Date ,Incentive_Amount)
+VALUES (1,  "01-Jan-13",4500);
+
+INSERT INTO 
+incentives (Emp_Ref_ID, Incentive_Date ,Incentive_Amount)
+VALUES (2,  "01-Jan-13",3500);
+
+
+// CONDITIONS
+
+-- Condition A -- Get First_Name from employee table using Tom name “Employee Name”.
+
+select * from employee where First_Name = "Tom";
+
+
+-- Condition B -- Get FIRST_NAME, Joining Date, and Salary from employee table.
+
+select First_Name, Joining_Date_Time, Salary from employee;
+
+
+-- Condition C -- Get all employee details from the employee table order by First_Name
+Ascending and Salary descending?
+
+SELECT * from employee ORDER BY Salary DESC, First_Name ASC ;
+
+
+-- Condition D -- Get employee details from employee table whose first name contains ‘J’.
+
+select * from employee where First_Name like 'J%';
+
+
+-- Condition E -- Get department wise maximum salary from employee table order by salary
+ascending?
+
+select Department, max(Salary) As Max_Salary from employee group by Department Order By Salary ASC;
+
+
+-- Condition F -- Select first_name, incentive amount from employee and incentives table for
+those employees who have incentives and incentive amount greater than 3000
+
+SELECT employee.First_Name, incentives.Incentive_Amount
+FROM employee
+INNER JOIN incentives ON employee.E_ID = incentives.Emp_Ref_ID
+WHERE incentives.Incentive_Amount > 3000;
+
+
+-- Condition G -- Create After Insert trigger on Employee table which insert records in view
+table
+
+// Create Table for Data Inserted
+
+CREATE TABLE InsertEmployeeData
+(
+    E_ID int ,
+    First_Name VARCHAR (40),
+    Last_Name VARCHAR (40),
+    Salary int,
+    Joining_Date_Time VARCHAR (40),
+    Department VARCHAR (40),
+    
+    insert_Date_Time timestamp,
+    E_action_performed varchar (40)
+);
+
+
+// Create Trigger To Shows Insert Data in Future
+
+DELIMITER $$
+
+CREATE TRIGGER InsertData AFTER INSERT ON employee for EACH ROW
+BEGIN
+
+INSERT INTO insertemployeedata (E_ID, First_Name, Last_Name, Salary, Joining_Date_Time, Department, E_action_performed)
+VALUES
+(new.E_ID, new.First_Name, new.Last_Name, new.Salary, new.Joining_Date_Time, new.Department, "Record Insertedd");
+
+
+END
+
+// Insert Data into Employee Table to Check Trigger is Working or Not
+
+INSERT INTO
+employee(E_ID, First_Name,Last_Name,Salary, Joining_Date_Time, Department)
+VALUES (9,"Akshay", "Pitroda", 850000, "01-Jan-23  (10:00 AM)", "Loan Department");

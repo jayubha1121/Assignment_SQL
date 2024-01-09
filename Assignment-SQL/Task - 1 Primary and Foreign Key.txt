@@ -1,0 +1,81 @@
+SQL - Assignment
+
+Task  1 - Create Table Name : Student and Exam
+
+// Create Database
+
+CREATE DATABASE sql_assignment;
+
+
+// Create Table
+
+CREATE TABLE student
+(
+	Rollno INT PRIMARY KEY,
+    Name VARCHAR(40),
+    Branch VARCHAR(40)
+);
+
+
+// Insert Data into Table student
+
+INSERT INTO
+student (Rollno, Name, Branch)
+VALUES (1,"Jay","Computer Science");
+
+INSERT INTO
+student (Rollno, Name, Branch)
+VALUES (2,"Suhani","Electronic and Com");
+
+INSERT INTO
+student (Rollno, Name, Branch)
+VALUES (3,"Kirti","Electronic and Com");
+
+
+// Create Another Table Exam
+
+
+create table exam
+(
+    Rollno int,
+    S_code VARCHAR (20),
+    Marks Int,
+    P_code VARCHAR(20),
+    
+    FOREIGN KEY (Rollno) REFERENCES student(Rollno)
+
+);
+
+// Insert Data into Table Exam
+
+
+INSERT INTO
+exam (Rollno, S_code, Marks,P_code)
+VALUES (1,"CS11", 50,"CS");
+
+INSERT INTO
+exam (Rollno, S_code, Marks,P_code)
+VALUES (1,"CS12", 60,"CS");
+
+INSERT INTO
+exam (Rollno, S_code, Marks,P_code)
+VALUES (2,"EC101", 66,"EC");
+
+INSERT INTO
+exam (Rollno, S_code, Marks,P_code)
+VALUES (2,"EC102", 70,"EC");
+
+INSERT INTO
+exam (Rollno, S_code, Marks,P_code)
+VALUES (3,"EC101", 45,"EC");
+
+INSERT INTO
+exam (Rollno, S_code, Marks,P_code)
+VALUES (3,"EC102", 50,"EC");
+
+
+select  * from student;
+
+select  * from exam;
+
+
